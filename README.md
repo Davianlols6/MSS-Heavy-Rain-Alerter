@@ -11,7 +11,7 @@ Change `config.discord_webhooks`  to a list of Discord webhook URL.
 
 _Example:_
 **Before:**
-`url = config.discord_webhooks`
+`url = config.discord_webhooks`<br>
 **After:**
 `url = ["https://discord.com/api/webhooks/7730451504355311616/wKsVrQ2Y443b4VfoLWQJDPRLyS-WV"]`
 
