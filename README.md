@@ -4,6 +4,10 @@ This Python code retrieves Heavy Rain warnings from MSS and relays it to Discord
 
 If you need anything, I am contactable through the following email davian@davianeng.com.
 ## Instructions before running main.py
+#### On line 7:
+`import config`
+
+Delete `import config`.
 #### On line 12:
 `url = config.discord_webhooks`
 
