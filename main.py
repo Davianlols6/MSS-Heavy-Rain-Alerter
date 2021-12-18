@@ -3,23 +3,26 @@ import datetime
 import time
 from datetime import datetime, timedelta
 import sys, os
+from dotenv import load_dotenv
+import json
 
-import config
+load_dotenv()
 
 weather_alerts = []
 
 def send(message, time):
-    url = config.discord_webhooks
+    url = json.loads(os.environ.get("discord_webhook"))["data"]
     obj = {"embeds": [{"title": "Heavy Rain Warning","url": "http://www.weather.gov.sg/warning-heavy-rain/","color": 16715535,"fields": [ {"name": "Message", "value": "\n\n".join(message)}], "author": {"name": "Meteorological Service Singapore (MSS)", "url": "http://www.weather.gov.sg/home"}, "footer": {"text": "Issued at"}, "timestamp": time, "thumbnail": {"url": "http://www.weather.gov.sg/wp-content/themes/wiptheme/assets/img/mss-logo.png"}}],"username": "Bot" }
-
+    
     for items in url:
+        print(items)
         requests.post(items, json=obj)
 
 def Check():
     global weather_alerts
 
     try:
-        c = requests.get("http://www.weather.gov.sg/wp-content/themes/wiptheme/page-functions/functions-ajax-warningbar.php", timeout=10).json()
+        c = requests.get("https://www.davianeng.com/warnings.json", timeout=10).json()
         be = []
         for items in c:
             for item2 in items['warnings']:
@@ -31,7 +34,6 @@ def Check():
         bc = []
         if be != weather_alerts:
             weather_alerts = be
-            print("".join(weather_alerts))
 
             for items in c[0]['warnings'][0]["title"].split('<br>'):
                 if items != "":
