@@ -22,7 +22,7 @@ def Check():
     global weather_alerts
 
     try:
-        c = requests.get("https://www.davianeng.com/warnings.json", timeout=10).json()
+        c = requests.post("http://www.weather.gov.sg/wp-content/themes/wiptheme/page-functions/functions-ajax-warningbar.php", timeout=10).json()
         be = []
         for items in c:
             for item2 in items['warnings']:
